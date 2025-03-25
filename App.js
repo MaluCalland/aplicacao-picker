@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Switch } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
+          status: false,
           pizza: 0, //so valor numerico
           pizzas: [ //lista
             {key: 1, nome: 'Portuguesa', valor: 25},
@@ -26,9 +27,9 @@ class App extends Component {
         //itemIndex : orinetação a objetos
         <View style={styles.container}>
           <Text style={styles.menu}></Text>
-          <Picker>
+          <Picker
             selectedValue = {this.state.pizza}
-            onValueChange = {(itemValue, itemIndex) => this.setState({pizza: itemValue})}
+            onValueChange = {(itemValue, itemIndex) => this.setState({pizza: itemValue})}>
             {pizzasItem}
           </Picker>
           <Text style={styles.pizzas}>Você escolheu o sabor:  
@@ -36,6 +37,16 @@ class App extends Component {
           </Text>
           <Text style={styles.pizzas}> Valor: R$
             {this.state.pizzas[this.state.pizza].valor.toFixed(2)}
+          </Text>
+
+          <Switch
+          value={this.state.status}
+          onValueChange={(valorSwitch) => this.setState({status: valorSwitch})}
+          thumbColor="red"
+          />
+
+          <Text style={{ fontSize: 30}}>
+            {(this.state.status) ? "Ativo" : "Inativo"}
           </Text>
         </View>     
       );
@@ -56,7 +67,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 20,
     textAlign: 'center'
-  }
+  },
 });
 
 export default App;
